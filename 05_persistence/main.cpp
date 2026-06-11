@@ -153,8 +153,7 @@ int main() {
                     db[args[1]] = args[2];
                     response = "+OK\r\n";
 
-                    // --- PERSISTENCE WRITE ---
-                    // Open file in append-mode and log the entry safely
+                    
                     ofstream outfile("database.txt", ios::app);
                     if (outfile.is_open()) {
                         outfile << args[1] << " " << args[2] << "\n";
@@ -172,7 +171,6 @@ int main() {
                     if (db.erase(args[1])) {
                         response = ":1\r\n";
                         
-                        // Clear out the file and write the current live map state
                         ofstream outfile("database.txt");
                         for (auto const& [key, val] : db) {
                             outfile << key << " " << val << "\n";

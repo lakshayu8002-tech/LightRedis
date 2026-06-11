@@ -15,6 +15,10 @@ int main() {
         cout << "> ";
         if (!getline(cin, line)) break;
 
+        if (!line.empty() && line.back() == '\r') {
+            line.pop_back();
+        }
+
         vector<string> args;
         string current;
         bool in_quotes = false;
