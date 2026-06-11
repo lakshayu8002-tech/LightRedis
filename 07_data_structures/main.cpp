@@ -76,13 +76,12 @@ vector<string> parse_resp(const string& input) {
 int main() {
     unordered_map<string, RedisObject> db;
 
-    // Load database safely, ensuring multi-line format compatibility
     ifstream infile("database.txt");
     if (infile.is_open()) {
         string type, key, exp_str;
         while (getline(infile, type)) {
             if (type.find(' ') != string::npos) {
-                // Skips old flat Stage 06 layout lines to prevent database corruption
+               
                 continue; 
             }
             if (!getline(infile, key)) break;
