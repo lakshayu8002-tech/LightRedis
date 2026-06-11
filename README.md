@@ -66,20 +66,6 @@ within the `08_replication` module.*
 | **08** | `08_replication` |Consolidates all previous features (Persistence, TTL, Lists) with replication and robust error handling. |
 
 ---
-### Project Directory Structure
-```text
-LightRedis/
-├── 01_terminal_engine/
-├── 02_network_portal/
-├── 03_resp_protocol/
-├── 04_multi_client/
-├── 05_persistence/
-├── 06_ttl/
-├── 07_data_structures/
-└── 08_replication/  <-- Final Integrated Engine
-
-
- ---
 
 ## 🚀 Build and Run From Source
 
