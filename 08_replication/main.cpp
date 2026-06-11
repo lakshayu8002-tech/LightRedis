@@ -187,18 +187,22 @@ void handle_redis_command(int fd, const vector<string>& args, int epoll_fd) {
             response = "*0\r\n";
         } else {
             const auto& list = it->second;
-            int start = stoi(args[2]);
-            int end = stoi(args[3]);
-            
-            if (start < 0) start = max(0, (int)list.size() + start);
-            if (end < 0) end = max(0, (int)list.size() + end);
-            if (end >= (int)list.size()) end = list.size() - 1;
-            
-            if (start > end || start >= (int)list.size()) {
-                response = "*0\r\n";
-            } else {
-                vector<string> sub_list(list.begin() + start, list.begin() + end + 1);
-                response = format_resp_array(sub_list);
+            try {
+                int start = stoi(args[2]);
+                int end = stoi(args[3]);
+                
+                if (start < 0) start = max(0, (int)list.size() + start);
+                if (end < 0) end = max(0, (int)list.size() + end);
+                if (end >= (int)list.size()) end = list.size() - 1;
+                
+                if (start > end || start >= (int)list.size()) {
+                    response = "*0\r\n";
+                } else {
+                    vector<string> sub_list(list.begin() + start, list.begin() + end + 1);
+                    response = format_resp_array(sub_list);
+                }
+            } catch (...) {
+                response = "-ERR value is not an integer or out of range\r\n";
             }
         }
     }
