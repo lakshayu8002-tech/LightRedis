@@ -20,6 +20,7 @@ Modern web applications rely on ultra-fast caching systems to read and write dat
 * ✅ **Automatic Memory Cleaning:** Tracks active system time using Time-To-Live (TTL) expiration mechanics to automatically purge stale data.
 * ✅ **Advanced Data Types:** Upgraded storage arrays supporting sequential list operations (`LPUSH` and `LRANGE`).
 * ✅ **Live Distributed Syncing:** Supports Master-Slave replication to automatically stream data changes across separate server ports instantly.
+* ✅ **Robust Input Validation:**Implemented advanced error handling and input sanitization to prevent server crashes on malformed protocol commands.
 
 ---
 
@@ -49,7 +50,9 @@ Client App  ──[TCP Sockets]──>  epoll Multiplexer  ──>  RESP Transla
 
 ## 🗺️ Project Roadmap & Development Milestones
 
-The engine was engineered step-by-step across 8 independent modules to isolate and master low-level operating system primitives:
+*Note: While this table outlines the step-by-step development journey, the final, 
+fully-integrated production version of LightRedis is contained entirely 
+within the `08_replication` module.*
 
 | Milestone | Module Folder | Core Production Mechanics Built |
 | :--- | :--- | :--- |
@@ -60,9 +63,23 @@ The engine was engineered step-by-step across 8 independent modules to isolate a
 | **05** | `05_persistence` | Added an automated data logging diary to keep database values safe on the hard drive via AOF. |
 | **06** | `06_ttl` | Created active/passive memory cleaners that automatically drop keys when their timer expires. |
 | **07** | `07_data_structures` | Expanded storage models to hold full dynamic arrays instead of single words. |
-| **08** | `08_replication` | Created a distributed sync system that pipes master database updates to clone servers live. |
+| **08** | `08_replication` |Consolidates all previous features (Persistence, TTL, Lists) with replication and robust error handling. |
 
 ---
+### Project Directory Structure
+```text
+LightRedis/
+├── 01_terminal_engine/
+├── 02_network_portal/
+├── 03_resp_protocol/
+├── 04_multi_client/
+├── 05_persistence/
+├── 06_ttl/
+├── 07_data_structures/
+└── 08_replication/  <-- Final Integrated Engine
+
+
+ ---
 
 ## 🚀 Build and Run From Source
 
@@ -72,7 +89,7 @@ The engine was engineered step-by-step across 8 independent modules to isolate a
 * Standard network testing tools (`netcat` or `redis-cli`)
 
 ### 1. Compilation
-Navigate to the final replication directory and compile the server source code:
+The final, integrated engine containing all features (Persistence, TTL, Lists, and Replication) is located in the 08_replication module.
 ```bash
 cd 08_replication
 g++ main.cpp -o server
